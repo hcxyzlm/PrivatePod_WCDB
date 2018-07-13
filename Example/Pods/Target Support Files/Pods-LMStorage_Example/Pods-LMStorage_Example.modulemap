@@ -1,0 +1,6 @@
+framework module Pods_LMStorage_Example {
+  umbrella header "Pods-LMStorage_Example-umbrella.h"
+
+  export *
+  module * { export * }
+}

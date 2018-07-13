@@ -1,0 +1,6 @@
+framework module LMStorage {
+  umbrella header "LMStorage-umbrella.h"
+
+  export *
+  module * { export * }
+}

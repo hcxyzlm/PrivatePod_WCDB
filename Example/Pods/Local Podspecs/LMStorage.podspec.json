@@ -1,0 +1,22 @@
+{
+  "name": "LMStorage",
+  "version": "0.1.0",
+  "summary": "A short description of LMStorage.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/mrscorpion/LMStorage",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "mrscorpion": "jl.liu@lazyaudio.com"
+  },
+  "source": {
+    "git": "https://github.com/mrscorpion/LMStorage.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "source_files": "LMStorage/Classes/**/*"
+}
