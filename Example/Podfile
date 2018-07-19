@@ -2,6 +2,7 @@ use_frameworks!
 
 target 'LMStorage_Example' do
   pod 'LMStorage', :path => '../'
+  pod 'SwiftLint'
 
   target 'LMStorage_Tests' do
     inherit! :search_paths
