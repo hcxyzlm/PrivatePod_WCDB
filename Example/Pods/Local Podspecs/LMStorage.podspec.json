@@ -18,5 +18,10 @@
   "platforms": {
     "ios": "8.0"
   },
-  "source_files": "LMStorage/Classes/**/*"
+  "source_files": "LMStorage/Classes/**/*",
+  "dependencies": {
+    "WCDB.swift": [
+      "~> 1.0.6.2"
+    ]
+  }
 }
