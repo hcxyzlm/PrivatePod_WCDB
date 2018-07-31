@@ -21,8 +21,6 @@
 #import "sqliterk_pager.h"
 #import "sqliterk_util.h"
 #import "sqliterk_values.h"
-#import "sqlite3.h"
-#import "fts3_tokenizer.h"
 
 FOUNDATION_EXPORT double WCDBSwiftVersionNumber;
 FOUNDATION_EXPORT const unsigned char WCDBSwiftVersionString[];

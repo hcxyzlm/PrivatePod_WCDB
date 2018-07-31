@@ -9,19 +9,19 @@
 import Foundation
 import WCDBSwift
 
-class LMKeyValueItem: WCDBSwift.TableCodable {
+public class LMKeyValueItem: WCDBSwift.TableCodable {
     var itemId: String?
     var jsonObject: String?
     var createTime: Date?
-    enum CodingKeys: String, CodingTableKey {
-        typealias Root = LMKeyValueItem
+    public enum CodingKeys: String, CodingTableKey {
+        public typealias Root = LMKeyValueItem
         case itemId
         case jsonObject
         case createTime
-        static let objectRelationalMapping = TableBinding(CodingKeys.self)
+        public static let objectRelationalMapping = TableBinding(CodingKeys.self)
         
         //Column constraints for primary key, unique, not null, default value and so on. It is optional.
-        static var columnConstraintBindings: [CodingKeys: ColumnConstraintBinding]? {
+        public static var columnConstraintBindings: [CodingKeys: ColumnConstraintBinding]? {
             return [
                 itemId: ColumnConstraintBinding(isPrimary: true)
             ]

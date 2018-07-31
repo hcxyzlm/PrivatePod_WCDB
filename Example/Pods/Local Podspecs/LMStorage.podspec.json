@@ -23,5 +23,8 @@
     "WCDB.swift": [
       "~> 1.0.6.2"
     ]
+  },
+  "xcconfig": {
+    "GCC_PREPROCESSOR_DEFINITIONS": "$(inherited) WCDB_BUILTIN_SQLCIPHER WCDB_COCOAPODS"
   }
 }

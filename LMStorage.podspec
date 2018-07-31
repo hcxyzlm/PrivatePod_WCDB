@@ -38,5 +38,8 @@ TODO: Add long description of the pod here.
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
-  s.dependency 'WCDB.swift', '~> 1.0.6.2'
+ s.dependency 'WCDB.swift', '~> 1.0.6.2'
+  s.xcconfig = {
+      "GCC_PREPROCESSOR_DEFINITIONS" => "$(inherited) WCDB_BUILTIN_SQLCIPHER WCDB_COCOAPODS",
+  }
 end

@@ -20,9 +20,7 @@ enum LMStoreError: Swift.Error {
 }
 
 
-public class LMKeyValueStore {
-    
-//    static let shareInstance = try LMKeyValueStore(dbPath: "\(DOCUMENTPATH)/\(DEFAULTDBNAME)")
+open class LMKeyValueStore {
     
     private var dbConection: Database?
     convenience public init(_ dbName: String, path: String) {
@@ -113,7 +111,7 @@ public class LMKeyValueStore {
         }
     }
     
-    func getKeyValueItem(_ objectId: String!, tableName: String!) throws -> LMKeyValueItem {
+    func getKeyValueItem(_ objectId: String!, tableName: String!) throws -> LMKeyValueItem? {
         
         guard LMKeyValueStore .checkTableName(tableName) else {
             throw LMStoreError.stringFormatError
@@ -123,7 +121,7 @@ public class LMKeyValueStore {
         }
         do {
             
-            let item: LMKeyValueItem = (try self.dbConection?.getObject(on: LMKeyValueItem.Properties.all, fromTable: tableName, where: LMKeyValueItem.Properties.itemId == objectId, orderBy: nil, offset: 0))!
+            let item: LMKeyValueItem?  = try self.dbConection?.getObject(on: LMKeyValueItem.Properties.all, fromTable: tableName, where: LMKeyValueItem.Properties.itemId == objectId)
             return item
         } catch let error {
             throw error
@@ -131,15 +129,45 @@ public class LMKeyValueStore {
         
     }
     
-    public func getObject(_ objectId: String!, _ tableName: String!)throws -> LMStoreValue{
+    public func getObject(_ objectId: String!, _ tableName: String!)throws -> LMStoreValue?{
         do {
             
-            let item:LMKeyValueItem = try self.getKeyValueItem(objectId, tableName: tableName)
-            return LMStoreValue(item.jsonObject as AnyObject)
+            let item:LMKeyValueItem? = try self.getKeyValueItem(objectId, tableName: tableName)
+            return LMStoreValue(item?.jsonObject as AnyObject)
         } catch let error {
             throw error
         }
         
+    }
+    
+    public func markExpired(_ objectId: String!, _ tableName: String!)throws {
+        guard LMKeyValueStore .checkTableName(tableName) else {
+            throw LMStoreError.stringFormatError
+        }
+        guard objectId != nil else {
+            throw LMStoreError.stringFormatError
+        }
+        
+        do {
+            let updateItem = LMKeyValueItem()
+            updateItem.createTime = Date(timeIntervalSince1970: 0)
+            try self.dbConection?.update(table: tableName, on: LMKeyValueItem.Properties.createTime, with: updateItem, where: LMKeyValueItem.Properties.itemId == objectId)
+        } catch let error {
+            throw error
+        }
+    }
+    
+    public func markExpired(_ tableName:String!) throws {
+        guard LMKeyValueStore .checkTableName(tableName) else {
+            throw LMStoreError.stringFormatError
+        }
+        do {
+            let updateItem = LMKeyValueItem()
+            updateItem.createTime = Date(timeIntervalSince1970: 0)
+            try self.dbConection?.update(table: tableName, on: LMKeyValueItem.Properties.createTime, with: updateItem)
+        } catch let error {
+            throw error
+        }
     }
     
     internal static func checkTableName(_ tableName: String!)->Bool {
