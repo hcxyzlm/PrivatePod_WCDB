@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import LMStorage
 import WCDBSwift
 
 class ViewController: UIViewController {
@@ -19,21 +20,22 @@ class ViewController: UIViewController {
         do {
             try database.create(table: "KeyItemTable", of: LMKeyValueItem.self)
         }catch {
-            
+
         }
-        
-        
+
+
         let keyItem = LMKeyValueItem()
         keyItem.createTime = Date()
         keyItem.itemId = "primaryKey"
         keyItem.jsonObject = "/news/province-pm2-ts0.json"
-        
+
         do {
             try database.insertOrReplace(objects: keyItem, intoTable: "KeyItemTable")
-            
+
         }catch let error{
             print(error)
         }
+        
     }
 
     override func didReceiveMemoryWarning() {

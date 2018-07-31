@@ -14,7 +14,9 @@
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
 		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
-		AE3A91492109C6CE006EA640 /* LMKeyValueItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE3A91482109C6CE006EA640 /* LMKeyValueItem.swift */; };
+		AE652DA2210EFA7C0031DBB9 /* LMKeyValueItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE652DA1210EFA7B0031DBB9 /* LMKeyValueItem.swift */; };
+		AE652DA5210EFC870031DBB9 /* LMKeyValueStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE652DA3210EFC860031DBB9 /* LMKeyValueStore.swift */; };
+		AE652DA6210EFC870031DBB9 /* LMKeyValueConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE652DA4210EFC860031DBB9 /* LMKeyValueConfig.swift */; };
 		DF76BE4BED4D564E4DC185A3 /* Pods_LMStorage_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4050F517309AAC2CA9E9FA03 /* Pods_LMStorage_Tests.framework */; };
 /* End PBXBuildFile section */
 
@@ -47,7 +49,9 @@
 		6525238366AF7A77953FAD16 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		6A166D1B63CDCEE6A416532C /* LMStorage.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LMStorage.podspec; path = ../LMStorage.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		6D2097FEBEDF1ABD63FDC06C /* Pods-LMStorage_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LMStorage_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-LMStorage_Example/Pods-LMStorage_Example.release.xcconfig"; sourceTree = "<group>"; };
-		AE3A91482109C6CE006EA640 /* LMKeyValueItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LMKeyValueItem.swift; sourceTree = "<group>"; };
+		AE652DA1210EFA7B0031DBB9 /* LMKeyValueItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LMKeyValueItem.swift; sourceTree = "<group>"; };
+		AE652DA3210EFC860031DBB9 /* LMKeyValueStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LMKeyValueStore.swift; path = ../../LMStorage/Classes/LMKeyValueStore.swift; sourceTree = "<group>"; };
+		AE652DA4210EFC860031DBB9 /* LMKeyValueConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LMKeyValueConfig.swift; path = ../../LMStorage/Classes/LMKeyValueConfig.swift; sourceTree = "<group>"; };
 		C9129AED5DE0C30F97294E79 /* Pods-LMStorage_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LMStorage_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-LMStorage_Tests/Pods-LMStorage_Tests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -104,13 +108,15 @@
 		607FACD21AFB9204008FA782 /* Example for LMStorage */ = {
 			isa = PBXGroup;
 			children = (
+				AE652DA4210EFC860031DBB9 /* LMKeyValueConfig.swift */,
+				AE652DA3210EFC860031DBB9 /* LMKeyValueStore.swift */,
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
 				607FACD71AFB9204008FA782 /* ViewController.swift */,
+				AE652DA1210EFA7B0031DBB9 /* LMKeyValueItem.swift */,
 				607FACD91AFB9204008FA782 /* Main.storyboard */,
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
 				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
 				607FACD31AFB9204008FA782 /* Supporting Files */,
-				AE3A91482109C6CE006EA640 /* LMKeyValueItem.swift */,
 			);
 			name = "Example for LMStorage";
 			path = LMStorage;
@@ -367,9 +373,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AE652DA5210EFC870031DBB9 /* LMKeyValueStore.swift in Sources */,
 				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
-				AE3A91492109C6CE006EA640 /* LMKeyValueItem.swift in Sources */,
+				AE652DA6210EFC870031DBB9 /* LMKeyValueConfig.swift in Sources */,
+				AE652DA2210EFA7C0031DBB9 /* LMKeyValueItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
