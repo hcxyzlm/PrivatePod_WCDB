@@ -13,9 +13,10 @@ import WCDBSwift
  key-value存储类
  */
 
-enum LMKeyValueStoreError: Swift.Error {
+enum LMStoreError: Swift.Error {
     case dbConnnectionError     // 数据库链接错误
-    case dbStringFormatError    // 表，字段字符格式错误
+    case stringFormatError    // 表，字段字符格式错误
+    case valueNoSupport       // 不支持存储格式
 }
 
 
@@ -39,7 +40,7 @@ public class LMKeyValueStore {
     /// - Throws: 抛出异常
     public func createTable(tableName: String!) throws {
         guard LMKeyValueStore .checkTableName(tableName) else {
-            throw LMKeyValueStoreError.dbStringFormatError
+            throw LMStoreError.stringFormatError
         }
         do {
             try self.dbConection?.create(table: tableName, of: LMKeyValueItem.self)
@@ -53,7 +54,7 @@ public class LMKeyValueStore {
     /// - Parameter tableName: 表名
     public func dropTable(tableName: String!) throws {
         guard LMKeyValueStore .checkTableName(tableName) else {
-            throw LMKeyValueStoreError.dbStringFormatError
+            throw LMStoreError.stringFormatError
         }
         do {
             try self.dbConection?.drop(table: tableName)
@@ -64,7 +65,7 @@ public class LMKeyValueStore {
     }
     public func isTableExists(tableName: String) throws -> Bool {
         guard LMKeyValueStore .checkTableName(tableName) else {
-            throw LMKeyValueStoreError.dbStringFormatError
+            throw LMStoreError.stringFormatError
         }
         do {
             let result = try self.dbConection?.isTableExists(tableName)
@@ -75,13 +76,68 @@ public class LMKeyValueStore {
     }
     public func clearTable(tableName: String) throws {
         guard LMKeyValueStore .checkTableName(tableName) else {
-            throw LMKeyValueStoreError.dbStringFormatError
+            throw LMStoreError.stringFormatError
         }
         do {
             try self.dbConection?.delete(fromTable: tableName)
         } catch let error {
             throw error
         }
+    }
+    
+    // 增删改查
+    public func putObject(_ object: Any?, objectId: String!, tableName: String!) throws {
+        
+        guard LMKeyValueStore .checkTableName(tableName) else {
+            throw LMStoreError.stringFormatError
+        }
+        guard objectId != nil else {
+            throw LMStoreError.stringFormatError
+        }
+        let set = LMStoreSetter(object)
+        guard let _: String = set.jsonString else {
+            throw LMStoreError.valueNoSupport
+        }
+        
+        let valueItem = LMKeyValueItem();
+        valueItem.itemId = objectId
+        valueItem.createTime = Date()
+        valueItem.jsonObject = set.jsonString
+        
+        do {
+            try self.dbConection?.insertOrReplace(objects: valueItem, intoTable: tableName)
+        } catch let error {
+            throw error
+        }
+    }
+    
+    public func getKeyValueItem(_ objectId: String!, tableName: String!) throws -> LMKeyValueItem {
+        
+        guard LMKeyValueStore .checkTableName(tableName) else {
+            throw LMStoreError.stringFormatError
+        }
+        guard objectId != nil else {
+            throw LMStoreError.stringFormatError
+        }
+        do {
+            
+            let item = try self.dbConection?.getObject(on: LMKeyValueItem.Properties.all, fromTable: tableName)
+            return item
+        } catch let error {
+            throw error
+        }
+        
+    }
+    
+    public func getObject(_ objectId: String!, _ tableName: String!)throws -> LMStoreValue{
+        do {
+            
+            let item:LMKeyValueItem = self.getKeyValueItem(objectId, tableName: tableName)
+            return LMStoreValue(item.jsonObject)
+        } catch let error {
+            throw error
+        }
+        
     }
     
     internal static func checkTableName(_ tableName: String!)->Bool {

@@ -8,33 +8,42 @@
 
 import UIKit
 import LMStorage
-import WCDBSwift
 
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        let path = self.documentPath().appending("/test.db");
-        let database = Database(withPath:path)
-        do {
-            try database.create(table: "KeyItemTable", of: LMKeyValueItem.self)
-        }catch {
-
-        }
-
-
-        let keyItem = LMKeyValueItem()
-        keyItem.createTime = Date()
-        keyItem.itemId = "primaryKey"
-        keyItem.jsonObject = "/news/province-pm2-ts0.json"
-
-        do {
-            try database.insertOrReplace(objects: keyItem, intoTable: "KeyItemTable")
-
-        }catch let error{
-            print(error)
-        }
+//        let path = self.documentPath().appending("/test.db");
+//        let database = Database(withPath:path)
+//        do {
+//            try database.create(table: "KeyItemTable", of: LMKeyValueItem.self)
+//        }catch {
+//
+//        }
+//
+//
+//        let keyItem = LMKeyValueItem()
+//        keyItem.createTime = Date()
+//        keyItem.itemId = "primaryKey"
+//        keyItem.jsonObject = "/news/province-pm2-ts0.json"
+//
+//        do {
+//            try database.insertOrReplace(objects: keyItem, intoTable: "KeyItemTable")
+//
+//        }catch let error{
+//            print(error)
+//        }
+        
+         let user : Dictionary<String,AnyObject> = ["id":1 as AnyObject , "name" : "tangqiao" as AnyObject , "age" : 30 as AnyObject]
+        
+//        let setter = LMStoreSetter(user)
+//
+//        let number = NSNumber(integerLiteral: 1);
+//
+//        let numstter = LMStoreSetter(number)
+        
+        
         
     }
 
