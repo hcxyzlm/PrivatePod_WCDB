@@ -35,16 +35,25 @@ class ViewController: UIViewController {
 //            print(error)
 //        }
         
+        
          let user : Dictionary<String,AnyObject> = ["id":1 as AnyObject , "name" : "tangqiao" as AnyObject , "age" : 30 as AnyObject]
-        
-//        let setter = LMStoreSetter(user)
 //
-//        let number = NSNumber(integerLiteral: 1);
-//
-//        let numstter = LMStoreSetter(number)
+        let number = NSNumber(integerLiteral: 1)
         
+        let store = LMKeyValueStore(dbName:"test.db")
         
-        
+        do {
+            try store.createTable(tableName: "TestTable")
+            try store.putObject(user, objectId: "userid", tableName:"TestTable" )
+            let result = try store.getObject("userid", "TestTable")
+            
+            try store.putObject(number, objectId: "numberid", tableName: "TestTable" )
+            let number = try store.getObject("numberid", "TestTable").numberValue
+            print(number)
+            print(result.dictionaryValue)
+        }catch let error{
+            print(error)
+        }
     }
 
     override func didReceiveMemoryWarning() {

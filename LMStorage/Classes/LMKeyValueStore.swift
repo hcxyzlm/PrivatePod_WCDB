@@ -22,16 +22,18 @@ enum LMStoreError: Swift.Error {
 
 public class LMKeyValueStore {
     
-    static let shareInstance = try LMKeyValueStore(dbPath: "\(DOCUMENTPATH)/\(DEFAULTDBNAME)")
+//    static let shareInstance = try LMKeyValueStore(dbPath: "\(DOCUMENTPATH)/\(DEFAULTDBNAME)")
     
     private var dbConection: Database?
-//    convenience private init(dbName: String!, path: String!) throws {
-//        self.init(dbPath: "\(path)/\(dbName)")
-//        guard dbConection != nil else {
-//            throw LMKeyValueStoreError.dbConnnectionError
-//        }
-//    }
-    private init(dbPath: String!) {
+    convenience public init(_ dbName: String, path: String) {
+        self.init(dbPath: "\(path)/\(dbName)")
+    }
+    
+    convenience public init(dbName:String) {
+        self.init(dbName, path: DOCUMENTPATH)
+    }
+    
+    private init(dbPath: String) {
         dbConection =  Database(withPath: dbPath)
     }
     /// 新建一个表
@@ -111,7 +113,7 @@ public class LMKeyValueStore {
         }
     }
     
-    public func getKeyValueItem(_ objectId: String!, tableName: String!) throws -> LMKeyValueItem {
+    func getKeyValueItem(_ objectId: String!, tableName: String!) throws -> LMKeyValueItem {
         
         guard LMKeyValueStore .checkTableName(tableName) else {
             throw LMStoreError.stringFormatError
@@ -121,7 +123,7 @@ public class LMKeyValueStore {
         }
         do {
             
-            let item = try self.dbConection?.getObject(on: LMKeyValueItem.Properties.all, fromTable: tableName)
+            let item: LMKeyValueItem = (try self.dbConection?.getObject(on: LMKeyValueItem.Properties.all, fromTable: tableName, where: LMKeyValueItem.Properties.itemId == objectId, orderBy: nil, offset: 0))!
             return item
         } catch let error {
             throw error
@@ -132,8 +134,8 @@ public class LMKeyValueStore {
     public func getObject(_ objectId: String!, _ tableName: String!)throws -> LMStoreValue{
         do {
             
-            let item:LMKeyValueItem = self.getKeyValueItem(objectId, tableName: tableName)
-            return LMStoreValue(item.jsonObject)
+            let item:LMKeyValueItem = try self.getKeyValueItem(objectId, tableName: tableName)
+            return LMStoreValue(item.jsonObject as AnyObject)
         } catch let error {
             throw error
         }

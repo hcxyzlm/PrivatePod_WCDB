@@ -9,7 +9,7 @@
 import Foundation
 import WCDBSwift
 
-public class LMKeyValueItem: WCDBSwift.TableCodable {
+class LMKeyValueItem: WCDBSwift.TableCodable {
     var itemId: String?
     var jsonObject: String?
     var createTime: Date?
